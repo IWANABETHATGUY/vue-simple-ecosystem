@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"><container ></container></div>
+  </body>
+  <script src="./dist/index.js"></script>
+  <script>
+    //   list: [1, 2, 3]
+    // });
+    const ryu = Ryu.default;
+    // get plugin from esmodule
+    const store = ryu.createStore({
+      model: {
+        list: [1, 2, 3]
+      }
+    });
+    const Container = {
+      template: `
+            <div>
+              <ul>
+                <li v-for="item in list">{{item}}</li>
+              </ul>
+            </div>
+    
+          `,
+      created() {
+        console.log(this);
+      },
+      computed: {
+        list() {
+          return this.$store.list;
+        }
+      }
+    };
+    Vue.use(ryu);
+    const vm = new Vue({
+      el: '#root',
+      components: {
+        Container,
+      },
+      store,
+    });
+  </script>
+</html>
